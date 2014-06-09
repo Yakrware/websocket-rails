@@ -134,29 +134,6 @@ module WebsocketRails
       @standalone_port = port
     end
 
-    def thin_options
-      @thin_options ||= thin_defaults
-    end
-
-    def thin_options=(options = {})
-      @thin_options = thin_defaults.merge(options)
-    end
-
-    def thin_defaults
-      {
-        :port => standalone_port,
-        :pid => "#{Rails.root}/tmp/pids/websocket_rails.pid",
-        :log => "#{Rails.root}/log/websocket_rails_server.log",
-        :tag => 'websocket_rails',
-        :rackup => "#{Rails.root}/config.ru",
-        :threaded => false,
-        :daemonize => daemonize?,
-        :dirname => Rails.root,
-        :max_persistent_conns => 1024,
-        :max_conns => 1024
-      }
-    end
-
     def default_ping_interval
       @default_ping_interval ||= 10
     end

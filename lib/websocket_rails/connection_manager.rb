@@ -1,8 +1,5 @@
 require 'faye/websocket'
 require 'rack'
-require 'thin'
-
-Faye::WebSocket.load_adapter('thin')
 
 module WebsocketRails
   # The +ConnectionManager+ class implements the core Rack application that handles
