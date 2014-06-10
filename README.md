@@ -1,6 +1,6 @@
 # Websocket-Rails
 
-[![Build Status](https://travis-ci.org/websocket-rails/websocket-rails.png?branch=master)](https://travis-ci.org/websocket-rails/websocket-rails)
+[![Build Status](https://travis-ci.org/Yakrware/websocket-rails.png?branch=master)](https://travis-ci.org/Yakrware/websocket-rails)
 [![Gem Version](https://badge.fury.io/rb/websocket-rails.png)](http://badge.fury.io/rb/websocket-rails)
 [![Code Climate](https://codeclimate.com/github/websocket-rails/websocket-rails.png)](https://codeclimate.com/github/websocket-rails/websocket-rails)
 
