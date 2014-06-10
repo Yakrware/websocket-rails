@@ -90,6 +90,7 @@ class @WebSocketRails
   bind: (event_name, callback) =>
     @callbacks[event_name] ?= []
     @callbacks[event_name].push callback
+    this
 
   unbind: (event_name) =>
     delete @callbacks[event_name]

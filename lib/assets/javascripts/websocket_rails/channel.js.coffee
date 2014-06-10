@@ -35,6 +35,7 @@ class WebSocketRails.Channel
   bind: (event_name, callback) ->
     @_callbacks[event_name] ?= []
     @_callbacks[event_name].push callback
+    this
 
   unbind: (event_name) ->
     delete @_callbacks[event_name]
