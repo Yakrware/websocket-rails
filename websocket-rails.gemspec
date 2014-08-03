@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files        = Dir["{lib,spec}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.md", "CHANGELOG.md"]
   s.require_path = 'lib'
 
-  s.add_dependency "rails"
+  s.add_dependency "rails", ">= 4.0"
   s.add_dependency "rack"
   s.add_dependency "faye-websocket"
   s.add_dependency "redis"

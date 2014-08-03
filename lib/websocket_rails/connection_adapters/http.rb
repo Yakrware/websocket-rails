@@ -28,6 +28,7 @@ module WebsocketRails
         # http://blogs.msdn.com/b/ieinternals/archive/2010/04/06/comet-streaming-in-internet-explorer-with-xmlhttprequest-and-xdomainrequest.aspx
         @body.chunk(encode_chunk(" " * 2048))
 
+        start_event_machine
         EM.next_tick do
           @env['async.callback'].call [200, @headers, @body]
           on_open
@@ -68,6 +69,8 @@ module WebsocketRails
       # From [thin_async](https://github.com/macournoyer/thin_async)
       class DeferrableBody
         include EM::Deferrable
+        include Logging
+        include WebsocketRails::Concerns::EventMachine
 
         # @param chunks - object that responds to each. holds initial chunks of content
         def initialize(chunks = [])
@@ -93,6 +96,7 @@ module WebsocketRails
         end
 
         def close!(flush = true)
+          start_event_machine
           EM.next_tick {
             if !flush || empty?
               succeed
@@ -107,6 +111,7 @@ module WebsocketRails
 
         def schedule_dequeue
           return unless @body_callback
+          start_event_machine
           EM.next_tick do
             next unless c = @queue.shift
             @body_callback.call(c)

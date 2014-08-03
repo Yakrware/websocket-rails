@@ -17,6 +17,7 @@ module WebsocketRails
     class Base
 
       include Logging
+      include WebsocketRails::Concerns::EventMachine
 
       def self.accepts?(env)
         false
@@ -177,6 +178,7 @@ module WebsocketRails
 
         # Set negative interval to nil to deactivate periodic pings
         if ping_interval > 0
+          start_event_machine
           @ping_timer = EM::PeriodicTimer.new(ping_interval) do
             if pong == true
               self.pong = false

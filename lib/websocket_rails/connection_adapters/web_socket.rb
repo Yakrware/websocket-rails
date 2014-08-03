@@ -1,6 +1,8 @@
 module WebsocketRails
   module ConnectionAdapters
     class WebSocket < Base
+      include Logging
+      include WebsocketRails::Concerns::EventMachine
 
       def self.accepts?(env)
         Faye::WebSocket.websocket?( env )
@@ -12,6 +14,7 @@ module WebsocketRails
         @connection.onmessage = method(:on_message)
         @connection.onerror   = method(:on_error)
         @connection.onclose   = method(:on_close)
+        start_event_machine
         EM.next_tick do
           on_open
         end

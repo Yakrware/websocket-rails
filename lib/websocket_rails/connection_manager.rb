@@ -7,6 +7,7 @@ module WebsocketRails
   class ConnectionManager
 
     include Logging
+    include WebsocketRails::Concerns::EventMachine
 
     SuccessfulResponse = [200,{'Content-Type' => 'text/plain'},['success']].freeze
     BadRequestResponse = [400,{'Content-Type' => 'text/plain'},['invalid']].freeze
@@ -29,6 +30,7 @@ module WebsocketRails
       @dispatcher  = Dispatcher.new(self)
 
       if WebsocketRails.synchronize?
+        start_event_machine
         EM.next_tick do
           Fiber.new {
             Synchronization.synchronize!

@@ -42,10 +42,12 @@ module WebsocketRails
     end
 
     include Logging
+    include WebsocketRails::Concerns::EventMachine
 
     def redis
       @redis ||= begin
         redis_options = WebsocketRails.config.redis_options
+        start_event_machine
         EM.reactor_running? ? Redis.new(redis_options) : ruby_redis
       end
     end
@@ -97,6 +99,7 @@ module WebsocketRails
 
         @synchronizing = true
 
+        start_event_machine
         EM.next_tick { synchro.resume }
 
         trap('TERM') do

@@ -2,6 +2,7 @@ module WebsocketRails
   class Dispatcher
 
     include Logging
+    include WebsocketRails::Concerns::EventMachine
 
     attr_reader :event_map, :connection_manager, :controller_factory
 
@@ -104,6 +105,7 @@ module WebsocketRails
 
     def execute(actions)
       actions.map do |action|
+        start_event_machine
         EM.next_tick { action.resume }
       end
     end
